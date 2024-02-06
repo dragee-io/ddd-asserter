@@ -1,0 +1,1 @@
+DDD Asserter definition for dragee-cli project.
