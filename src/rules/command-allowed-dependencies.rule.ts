@@ -1,19 +1,20 @@
+
 import { type Dragee, type RuleResult, expectDragee, directDependencies, type DrageeDependency } from "@dragee-io/asserter-type";
 import { DddRule } from "../ddd-rule.model.ts";
-import { kinds, valueObjectKind, kindOf } from "../ddd.model.ts";
+import { kinds, kindOf, commandKind, aggregateKind } from "../ddd.model.ts";
 
 const assertDrageeDependency = ({root, dependencies}: DrageeDependency): RuleResult[] =>
-    dependencies.map(dependency =>
-        expectDragee(dependency, `The value object "${root.name}" must not have any dependency of type "${dependency.kind_of}"`, 
-            (dragee) => kindOf(dragee, valueObjectKind)
+    dependencies.map(dependency => 
+        expectDragee(dependency, `The command "${root.name}" must not have any dependency of type "${dependency.kind_of}"`,
+            (dragee) => kindOf(dragee, aggregateKind)
         )
     )
 
 export default new DddRule(
-    "Value Object Rule",
+    "Command Allowed Dependency Rule",
     (dragees: Dragee[]): RuleResult[] => 
-        kinds[valueObjectKind].findIn(dragees)
-            .map(valueObject => directDependencies(valueObject, dragees))
+        kinds[commandKind].findIn(dragees)
+            .map(command => directDependencies(command, dragees))
             .filter(dep => dep.dependencies)
             .map(dep => assertDrageeDependency(dep))
             .flatMap(result => result));

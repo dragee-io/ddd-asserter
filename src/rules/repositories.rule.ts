@@ -1,38 +1,29 @@
-import type { Dragee, RuleResult } from "@dragee-io/asserter-type";
-import { failed, kindOf, successful } from "../ddd-rules.utils.ts";
-const isRepository = (dragee: Dragee) => kindOf(dragee, "ddd/repository")
-const isService = (dragee: Dragee) => kindOf(dragee, "ddd/service")
-const rule = (dragees: Dragee[]): RuleResult[] => {
-    const repositoryNames = dragees
-        .filter(dragee => isRepository(dragee))
-        .map(repository => repository.name)
+import { type Dragee, type RuleResult, expectDragee } from "@dragee-io/asserter-type";
+import { DddRule } from "../ddd-rule.model.ts";
+import { kindOf, repositoryKind, serviceKind } from "../ddd.model.ts";
 
-    const drageesWithRepositoryDependencies = dragees
-        .map(dragee => {
-            if (!dragee.depends_on) {
-                return []
-            }
-
-            const repositories: string[] =
-                Object.keys(dragee.depends_on).filter(name => repositoryNames.includes(name))
-
-            return repositories.map(repository => {
-                return {dragee: dragee, repositoryName: repository}
+export default new DddRule(
+    "Repository Rule",
+    (dragees: Dragee[]): RuleResult[] => {
+        const repositoryNames = dragees
+            .filter(dragee => kindOf(dragee, repositoryKind))
+            .map(repository => repository.name)
+    
+        const drageesWithRepositoryDependencies = dragees
+            .map(dragee => {
+                if (!dragee.depends_on) return []
+                return Object.keys(dragee.depends_on).filter(name => repositoryNames.includes(name)).map(repositoryName => {
+                    return {dragee, repositoryName}
+                })
             })
-        })
-        .flatMap(drageeWithRepo => drageeWithRepo)
-        .filter(drageeWithRepo => drageeWithRepo.repositoryName)
-
-    return drageesWithRepositoryDependencies
-        .map(drageeWithRepositories => {
-            if (isService(drageeWithRepositories.dragee)) {
-                return successful()
-            } else {
-                return failed(`The repository "${drageeWithRepositories.repositoryName}" must not be a dependency of "${drageeWithRepositories.dragee.kind_of}"`)
-            }
-        })
-}
-
-export const RepositoryRule = {
-    apply: rule
-}
+            .flatMap(drageeWithRepo => drageeWithRepo)
+            .filter(drageeWithRepo => drageeWithRepo.repositoryName)
+    
+        return drageesWithRepositoryDependencies
+            .map(drageeWithRepositories =>
+                expectDragee(drageeWithRepositories.dragee, 
+                    `The repository "${drageeWithRepositories.repositoryName}" must not be a dependency of "${drageeWithRepositories.dragee.kind_of}"`, 
+                    (drageeWithRepositories) => kindOf(drageeWithRepositories, serviceKind)
+                )
+            )
+    });
