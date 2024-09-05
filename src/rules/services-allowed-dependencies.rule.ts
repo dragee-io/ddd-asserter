@@ -1,4 +1,4 @@
-import { type Dragee, type RuleResult, expectDragee, directDependencies, type DrageeDependency } from "@dragee-io/asserter-type";
+import { type Dragee, type RuleResult, expectDragee, directDependencies, type DrageeDependency, RuleSeverity } from "@dragee-io/asserter-type";
 import { DddRule } from "../ddd-rule.model.ts";
 import { commandKind, entityKind, kindOf, kinds, repositoryKind, serviceKind, valueObjectKind } from "../ddd.model.ts";
 
@@ -11,6 +11,7 @@ const assertDrageeDependency = ({root, dependencies}: DrageeDependency): RuleRes
 
 export default new DddRule(
     "Service Allowed Dependency Rule",
+    RuleSeverity.ERROR,
     (dragees: Dragee[]): RuleResult[] => 
         kinds[serviceKind].findIn(dragees)
             .map(service => directDependencies(service, dragees))

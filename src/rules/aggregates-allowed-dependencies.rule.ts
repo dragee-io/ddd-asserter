@@ -1,4 +1,4 @@
-import { type Dragee, type RuleResult, expectDragee, directDependencies, type DrageeDependency } from "@dragee-io/asserter-type";
+import { type Dragee, type RuleResult, expectDragee, directDependencies, type DrageeDependency, RuleSeverity } from "@dragee-io/asserter-type";
 import { DddRule } from "../ddd-rule.model.ts";
 import { kinds, kindOf, aggregateKind, valueObjectKind, entityKind, eventKind,  } from "../ddd.model.ts";
 
@@ -10,7 +10,8 @@ const assertDrageeDependency = ({root, dependencies}: DrageeDependency): RuleRes
     );
 
 export default new DddRule(
-    "Aggregates Allowed Dependencies", 
+    "Aggregates Allowed Dependencies",
+    RuleSeverity.ERROR,
     (dragees: Dragee[]): RuleResult[] =>
         kinds[aggregateKind].findIn(dragees)
             .map(aggregate => directDependencies(aggregate, dragees))

@@ -1,5 +1,5 @@
 
-import { type Dragee, type RuleResult, expectDragee, directDependencies, type DrageeDependency } from "@dragee-io/asserter-type";
+import { type Dragee, type RuleResult, expectDragee, directDependencies, type DrageeDependency, RuleSeverity } from "@dragee-io/asserter-type";
 import { DddRule } from "../ddd-rule.model.ts";
 import { kinds, kindOf, factoryKind, aggregateKind, entityKind, valueObjectKind } from "../ddd.model.ts";
 
@@ -12,6 +12,7 @@ const assertDrageeDependency = ({root, dependencies}: DrageeDependency) =>
 
 export default new DddRule(
     "Command Allowed Dependency Rule",
+    RuleSeverity.ERROR,
     (dragees: Dragee[]): RuleResult[] => 
         kinds[factoryKind].findIn(dragees)
             .map(factory => directDependencies(factory, dragees))

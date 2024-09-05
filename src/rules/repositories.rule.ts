@@ -1,9 +1,10 @@
-import { type Dragee, type RuleResult, expectDragee } from "@dragee-io/asserter-type";
+import { type Dragee, type RuleResult, RuleSeverity, expectDragee } from "@dragee-io/asserter-type";
 import { DddRule } from "../ddd-rule.model.ts";
 import { kindOf, repositoryKind, serviceKind } from "../ddd.model.ts";
 
 export default new DddRule(
     "Repository Rule",
+    RuleSeverity.ERROR,
     (dragees: Dragee[]): RuleResult[] => {
         const repositoryNames = dragees
             .filter(dragee => kindOf(dragee, repositoryKind))
