@@ -2,11 +2,11 @@
   "dragees": [
     {
       "name": "AnEvent",
-      "kind_of": "ddd/event"
+      "profile": "ddd/event"
     },
     {
       "name": "ACommand",
-      "kind_of": "ddd/command",
+      "profile": "ddd/command",
       "depends_on": {
         "AnEvent": [
           "field"

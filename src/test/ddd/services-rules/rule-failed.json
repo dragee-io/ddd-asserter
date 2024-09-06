@@ -2,15 +2,15 @@
   "dragees": [
     {
       "name": "AnEvent",
-      "kind_of": "ddd/event"
+      "profile": "ddd/event"
     },
     {
       "name": "AValueObject",
-      "kind_of": "ddd/value_object"
+      "profile": "ddd/value_object"
     },
     {
       "name": "AService",
-      "kind_of": "ddd/service",
+      "profile": "ddd/service",
       "depends_on": {
         "AValueObject": [
           "field"

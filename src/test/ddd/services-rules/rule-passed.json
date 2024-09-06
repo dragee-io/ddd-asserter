@@ -2,24 +2,24 @@
   "dragees": [
     {
       "name": "ARepository",
-      "kind_of": "ddd/repository"
+      "profile": "ddd/repository"
     },
     {
       "name": "AValueObject",
-      "kind_of": "ddd/value_object"
+      "profile": "ddd/value_object"
     },
     {
       "name": "AnEntity",
-      "kind_of": "ddd/entity"
+      "profile": "ddd/entity"
     },
     {
       "name": "ACommand",
-      "kind_of": "ddd/command"
+      "profile": "ddd/command"
 
     },
     {
       "name": "AService",
-      "kind_of": "ddd/service",
+      "profile": "ddd/service",
       "depends_on": {
         "ARepository": [
           "field"

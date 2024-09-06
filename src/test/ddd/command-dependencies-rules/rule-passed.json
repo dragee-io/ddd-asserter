@@ -3,7 +3,7 @@
     "dragees": [
       {
         "name": "AnAggregate",
-        "kind_of": "ddd/aggregate",
+        "profile": "ddd/aggregate",
         "depends_on": {
           "AnEntity": [
             "field"
@@ -12,11 +12,11 @@
       },
       {
         "name": "AnEntity",
-        "kind_of": "ddd/entity"
+        "profile": "ddd/entity"
       },
       {
         "name": "ACommand",
-        "kind_of": "ddd/command",
+        "profile": "ddd/command",
         "depends_on": {
           "AnAggregate": [
             "field"

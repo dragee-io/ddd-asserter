@@ -2,7 +2,7 @@
   "dragees": [
     {
       "name": "AnAggregate",
-      "kind_of": "ddd/aggregate",
+      "profile": "ddd/aggregate",
       "depends_on":{
         "AnEntity": [
           "field"
@@ -11,15 +11,15 @@
     },
     {
       "name": "AValueObject",
-      "kind_of": "ddd/value_object"
+      "profile": "ddd/value_object"
     },
     {
       "name": "AnEntity",
-      "kind_of": "ddd/entity"
+      "profile": "ddd/entity"
     },
     {
       "name": "AFactory",
-      "kind_of": "ddd/factory",
+      "profile": "ddd/factory",
       "depends_on": {
         "AnAggregate": [
           "field"

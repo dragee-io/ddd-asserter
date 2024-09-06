@@ -2,11 +2,11 @@
   "dragees": [
     {
       "name": "AService",
-      "kind_of": "ddd/service"
+      "profile": "ddd/service"
     },
     {
       "name": "AnAggregate",
-      "kind_of": "ddd/aggregate",
+      "profile": "ddd/aggregate",
       "depends_on": {
         "AService": [
           "field"

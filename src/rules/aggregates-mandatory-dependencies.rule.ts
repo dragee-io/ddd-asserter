@@ -1,18 +1,18 @@
 
 import { type Dragee, type RuleResult, expectDragees, directDependencies, type DrageeDependency, RuleSeverity } from "@dragee-io/asserter-type";
 import { DddRule } from "../ddd-rule.model.ts";
-import { kinds, entityKind, aggregateKind } from "../ddd.model.ts";
+import { profiles, entityProfile, aggregateProfile } from "../ddd.model.ts";
 
 const assertDrageeDependency = ({root, dependencies}: DrageeDependency): RuleResult =>
     expectDragees(dependencies, `The aggregate "${root.name}" must at least contain a "ddd/entity" type dragee`, 
-        (dependencies) => !!kinds[entityKind].findIn(dependencies).length
+        (dependencies) => !!profiles[entityProfile].findIn(dependencies).length
     )
 
 export default new DddRule(
     "Aggregates Mandatory Dependencies",
     RuleSeverity.ERROR,
     (dragees: Dragee[]): RuleResult[] => 
-        kinds[aggregateKind].findIn(dragees)
+        profiles[aggregateProfile].findIn(dragees)
             .map(aggregate => directDependencies(aggregate, dragees))
             .filter(dep => dep.dependencies)
             .map(dep => assertDrageeDependency(dep))

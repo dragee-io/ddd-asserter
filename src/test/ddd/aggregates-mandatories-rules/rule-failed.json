@@ -2,11 +2,11 @@
   "dragees": [
     {
       "name": "AValueObject",
-      "kind_of": "ddd/value_object"
+      "profile": "ddd/value_object"
     },
     {
       "name": "AnAggregate",
-      "kind_of": "ddd/aggregate",
+      "profile": "ddd/aggregate",
       "depends_on": {
         "AValueObject": [
           "field"

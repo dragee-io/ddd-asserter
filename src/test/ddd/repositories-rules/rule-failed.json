@@ -2,15 +2,15 @@
   "dragees": [
     {
       "name": "ARepository1",
-      "kind_of": "ddd/repository"
+      "profile": "ddd/repository"
     },
     {
       "name": "ARepository2",
-      "kind_of": "ddd/repository"
+      "profile": "ddd/repository"
     },
     {
       "name": "AValueObject",
-      "kind_of": "ddd/value_object",
+      "profile": "ddd/value_object",
       "depends_on": {
         "ARepository1": [
           "field"

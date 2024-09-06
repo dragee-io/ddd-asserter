@@ -2,11 +2,11 @@
   "dragees": [
     {
       "name": "ARepository",
-      "kind_of": "ddd/repository"
+      "profile": "ddd/repository"
     },
     {
       "name": "AService",
-      "kind_of": "ddd/service",
+      "profile": "ddd/service",
       "depends_on": {
         "ARepository": [
           "field"

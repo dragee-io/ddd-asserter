@@ -1,13 +1,13 @@
 import { type Dragee, type RuleResult, RuleSeverity, expectDragee } from "@dragee-io/asserter-type";
 import { DddRule } from "../ddd-rule.model.ts";
-import { kindOf, repositoryKind, serviceKind } from "../ddd.model.ts";
+import { profileOf, repositoryProfile, serviceProfile } from "../ddd.model.ts";
 
 export default new DddRule(
     "Repository Rule",
     RuleSeverity.ERROR,
     (dragees: Dragee[]): RuleResult[] => {
         const repositoryNames = dragees
-            .filter(dragee => kindOf(dragee, repositoryKind))
+            .filter(dragee => profileOf(dragee, repositoryProfile))
             .map(repository => repository.name)
     
         const drageesWithRepositoryDependencies = dragees
@@ -23,8 +23,8 @@ export default new DddRule(
         return drageesWithRepositoryDependencies
             .map(drageeWithRepositories =>
                 expectDragee(drageeWithRepositories.dragee, 
-                    `The repository "${drageeWithRepositories.repositoryName}" must not be a dependency of "${drageeWithRepositories.dragee.kind_of}"`, 
-                    (drageeWithRepositories) => kindOf(drageeWithRepositories, serviceKind)
+                    `The repository "${drageeWithRepositories.repositoryName}" must not be a dependency of "${drageeWithRepositories.dragee.profile}"`, 
+                    (drageeWithRepositories) => profileOf(drageeWithRepositories, serviceProfile)
                 )
             )
     });
