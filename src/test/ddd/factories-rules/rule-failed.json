@@ -31,7 +31,10 @@
   "result": {
     "pass": false,
     "errors": [
-      "The factory \"AFactory\" must not have any dependency of type \"ddd/repository\""
+      {
+        "drageeName": "AFactory",
+        "message": "The factory \"AFactory\" must not have any dependency of type \"ddd/repository\""
+      }
     ]
   }
 }

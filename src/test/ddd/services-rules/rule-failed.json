@@ -24,7 +24,10 @@
   "result": {
     "pass": false,
     "errors": [
-      "The service \"AService\" must not have any dependency of type \"ddd/event\""
+      {
+        "drageeName": "AService",
+        "message": "The service \"AService\" must not have any dependency of type \"ddd/event\""
+      }
     ]
   }
 }

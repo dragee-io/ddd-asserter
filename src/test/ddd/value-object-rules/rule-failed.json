@@ -17,7 +17,10 @@
   "result": {
     "pass": false,
     "errors": [
-      "The value object \"AValueObject\" must not have any dependency of type \"ddd/service\""
+      {
+        "drageeName": "AValueObject",
+        "message": "The value object \"AValueObject\" must not have any dependency of type \"ddd/service\""
+      }
     ]
   }
 }

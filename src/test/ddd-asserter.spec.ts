@@ -28,7 +28,7 @@ function ruleFailed(drageeDirectory: string) {
 
         expect(report.pass).toBe(data.result.pass)
         data.result.errors.forEach(error => {
-            expect(report.errors).toContain(error)
+            expect(JSON.stringify(report.errors)).toContain(JSON.stringify(error))
         })
     })
 }

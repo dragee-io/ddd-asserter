@@ -6,14 +6,13 @@ export default new DddRule(
     "Repository Rule",
     RuleSeverity.ERROR,
     (dragees: Dragee[]): RuleResult[] => {
-        const repositoryNames = dragees
+        const repositories = dragees
             .filter(dragee => profileOf(dragee, repositoryProfile))
-            .map(repository => repository.name)
     
         const drageesWithRepositoryDependencies = dragees
             .map(dragee => {
                 if (!dragee.depends_on) return []
-                return Object.keys(dragee.depends_on).filter(name => repositoryNames.includes(name)).map(repositoryName => {
+                return Object.keys(dragee.depends_on).filter(name => includeRepoName(repositories, name)).map(repositoryName => {
                     return {dragee, repositoryName}
                 })
             })
@@ -22,9 +21,12 @@ export default new DddRule(
     
         return drageesWithRepositoryDependencies
             .map(drageeWithRepositories =>
-                expectDragee(drageeWithRepositories.dragee, 
+                expectDragee(findRepoDragee(repositories, drageeWithRepositories.repositoryName), drageeWithRepositories.dragee, 
                     `The repository "${drageeWithRepositories.repositoryName}" must not be a dependency of "${drageeWithRepositories.dragee.profile}"`, 
                     (drageeWithRepositories) => profileOf(drageeWithRepositories, serviceProfile)
                 )
             )
     });
+
+const includeRepoName = (repositoryNames: Dragee[], name: string): boolean => repositoryNames.map(rn => rn.name).includes(name);
+const findRepoDragee = (repositories: Dragee[], repositoryName: string): Dragee => repositories.find(r => r.name === repositoryName)!;

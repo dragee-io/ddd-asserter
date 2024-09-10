@@ -5,7 +5,7 @@ import { profiles, profileOf, commandProfile, aggregateProfile } from "../ddd.mo
 
 const assertDrageeDependency = ({root, dependencies}: DrageeDependency): RuleResult[] =>
     dependencies.map(dependency => 
-        expectDragee(dependency, `The command "${root.name}" must not have any dependency of type "${dependency.profile}"`,
+        expectDragee(root, dependency, `The command "${root.name}" must not have any dependency of type "${dependency.profile}"`,
             (dragee) => profileOf(dragee, aggregateProfile)
         )
     )

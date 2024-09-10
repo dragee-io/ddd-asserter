@@ -4,7 +4,7 @@ import { DddRule } from "../ddd-rule.model.ts";
 import { profiles, entityProfile, aggregateProfile } from "../ddd.model.ts";
 
 const assertDrageeDependency = ({root, dependencies}: DrageeDependency): RuleResult =>
-    expectDragees(dependencies, `The aggregate "${root.name}" must at least contain a "ddd/entity" type dragee`, 
+    expectDragees(root, dependencies, `The aggregate "${root.name}" must at least contain a "ddd/entity" type dragee`, 
         (dependencies) => !!profiles[entityProfile].findIn(dependencies).length
     )
 

@@ -24,8 +24,14 @@
   "result": {
     "pass": false,
     "errors": [
-      "The repository \"ARepository1\" must not be a dependency of \"ddd/value_object\"",
-      "The repository \"ARepository2\" must not be a dependency of \"ddd/value_object\""
+      {
+        "drageeName": "ARepository1",
+        "message": "The repository \"ARepository1\" must not be a dependency of \"ddd/value_object\""
+      },
+      {
+        "drageeName": "ARepository2",
+        "message": "The repository \"ARepository2\" must not be a dependency of \"ddd/value_object\""
+      }
     ]
   }
 }

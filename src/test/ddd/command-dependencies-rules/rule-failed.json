@@ -17,7 +17,10 @@
   "result": {
     "pass": false,
     "errors": [
-      "The command \"ACommand\" must not have any dependency of type \"ddd/event\""
+      {
+        "drageeName": "ACommand",
+        "message": "The command \"ACommand\" must not have any dependency of type \"ddd/event\""
+      }
     ]
   }
 }

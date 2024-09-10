@@ -4,7 +4,7 @@ import { commandProfile, entityProfile, profileOf, profiles, repositoryProfile, 
 
 const assertDrageeDependency = ({root, dependencies}: DrageeDependency): RuleResult[] =>
     dependencies.map(dependency =>
-        expectDragee(dependency, `The service "${root.name}" must not have any dependency of type "${dependency.profile}"`, 
+        expectDragee(root, dependency, `The service "${root.name}" must not have any dependency of type "${dependency.profile}"`, 
             (dragee) => profileOf(dragee, repositoryProfile, entityProfile, valueObjectProfile, commandProfile)
         )
 )

@@ -4,7 +4,7 @@ import { profiles, profileOf, aggregateProfile, valueObjectProfile, entityProfil
 
 const assertDrageeDependency = ({root, dependencies}: DrageeDependency): RuleResult[] => 
     dependencies.map(dependency => 
-        expectDragee(dependency, `The aggregate "${root.name}" must not have any dependency of type "${dependency.profile}"`, 
+        expectDragee(root, dependency, `The aggregate "${root.name}" must not have any dependency of type "${dependency.profile}"`, 
             (dragee) => profileOf(dragee, valueObjectProfile, entityProfile, eventProfile)
         )
     );
