@@ -4,7 +4,7 @@ import { profiles, valueObjectProfile, profileOf } from "../ddd.model.ts";
 
 const assertDrageeDependency = ({root, dependencies}: DrageeDependency): RuleResult[] =>
     dependencies.map(dependency =>
-        expectDragee(root, dependency, `The value object "${root.name}" must not have any dependency of type "${dependency.profile}"`, 
+        expectDragee(root, dependency, `This value object must not have any dependency of type "${dependency.profile}"`, 
             (dragee) => profileOf(dragee, valueObjectProfile)
         )
     )

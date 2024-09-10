@@ -26,7 +26,7 @@
     "errors": [
       {
         "drageeName": "AService",
-        "message": "The service \"AService\" must not have any dependency of type \"ddd/event\""
+        "message": "This service must not have any dependency of type \"ddd/event\""
       }
     ]
   }

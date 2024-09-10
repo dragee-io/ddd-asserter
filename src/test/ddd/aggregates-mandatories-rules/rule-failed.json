@@ -19,7 +19,7 @@
     "errors": [
       {
         "drageeName": "AnAggregate",
-        "message": "The aggregate \"AnAggregate\" must at least contain a \"ddd/entity\" type dragee"
+        "message": "This aggregate must at least contain a \"ddd/entity\" type dragee"
       }
     ]
   }

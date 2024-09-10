@@ -19,7 +19,7 @@
     "errors": [
       {
         "drageeName": "AnAggregate",
-        "message": "The aggregate \"AnAggregate\" must not have any dependency of type \"ddd/service\""
+        "message": "This aggregate must not have any dependency of type \"ddd/service\""
       }
     ]
   }

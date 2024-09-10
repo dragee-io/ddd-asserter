@@ -19,7 +19,7 @@
     "errors": [
       {
         "drageeName": "AValueObject",
-        "message": "The value object \"AValueObject\" must not have any dependency of type \"ddd/service\""
+        "message": "This value object must not have any dependency of type \"ddd/service\""
       }
     ]
   }

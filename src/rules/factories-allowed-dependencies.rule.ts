@@ -5,7 +5,7 @@ import { profiles, profileOf, factoryProfile, aggregateProfile, entityProfile, v
 
 const assertDrageeDependency = ({root, dependencies}: DrageeDependency) => 
     dependencies.map(dependency => 
-        expectDragee(root, dependency, `The factory "${root.name}" must not have any dependency of type "${dependency.profile}"`, 
+        expectDragee(root, dependency, `This factory must not have any dependency of type "${dependency.profile}"`, 
             (dragee) => profileOf(dragee, aggregateProfile, entityProfile, valueObjectProfile)
         )
     )

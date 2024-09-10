@@ -22,7 +22,7 @@ export default new DddRule(
         return drageesWithRepositoryDependencies
             .map(drageeWithRepositories =>
                 expectDragee(findRepoDragee(repositories, drageeWithRepositories.repositoryName), drageeWithRepositories.dragee, 
-                    `The repository "${drageeWithRepositories.repositoryName}" must not be a dependency of "${drageeWithRepositories.dragee.profile}"`, 
+                    `This repository must not be a dependency of "${drageeWithRepositories.dragee.profile}"`, 
                     (drageeWithRepositories) => profileOf(drageeWithRepositories, serviceProfile)
                 )
             )
