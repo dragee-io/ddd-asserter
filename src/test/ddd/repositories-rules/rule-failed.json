@@ -26,11 +26,13 @@
     "errors": [
       {
         "drageeName": "ARepository1",
-        "message": "This repository must not be a dependency of \"ddd/value_object\""
+        "message": "This repository must not be a dependency of \"ddd/value_object\"",
+        "ruleId": "ddd/repositories-dependencies"
       },
       {
         "drageeName": "ARepository2",
-        "message": "This repository must not be a dependency of \"ddd/value_object\""
+        "message": "This repository must not be a dependency of \"ddd/value_object\"",
+        "ruleId": "ddd/repositories-dependencies"
       }
     ]
   }

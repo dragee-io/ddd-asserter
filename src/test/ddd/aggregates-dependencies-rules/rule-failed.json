@@ -19,7 +19,8 @@
     "errors": [
       {
         "drageeName": "AnAggregate",
-        "message": "This aggregate must not have any dependency of type \"ddd/service\""
+        "message": "This aggregate must not have any dependency of type \"ddd/service\"",
+        "ruleId": "ddd/aggregates-allowed-dependencies"
       }
     ]
   }

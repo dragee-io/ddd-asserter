@@ -33,7 +33,8 @@
     "errors": [
       {
         "drageeName": "AFactory",
-        "message": "This factory must not have any dependency of type \"ddd/repository\""
+        "message": "This factory must not have any dependency of type \"ddd/repository\"",
+        "ruleId": "ddd/factories-allowed-dependencies"
       }
     ]
   }

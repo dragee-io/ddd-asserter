@@ -19,7 +19,8 @@
     "errors": [
       {
         "drageeName": "AnAggregate",
-        "message": "This aggregate must at least contain a \"ddd/entity\" type dragee"
+        "message": "This aggregate must at least contain a \"ddd/entity\" type dragee",
+        "ruleId": "ddd/aggregates-mandatory-dependencies"
       }
     ]
   }
