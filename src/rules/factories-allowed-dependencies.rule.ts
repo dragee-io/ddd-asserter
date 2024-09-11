@@ -11,7 +11,7 @@ const assertDrageeDependency = ({root, dependencies}: DrageeDependency) =>
     )
 
 export default new DddRule(
-    "Command Allowed Dependency Rule",
+    "Factories Allowed Dependencies",
     RuleSeverity.ERROR,
     (dragees: Dragee[]): RuleResult[] => 
         profiles[factoryProfile].findIn(dragees)

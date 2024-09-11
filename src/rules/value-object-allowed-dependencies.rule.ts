@@ -10,7 +10,7 @@ const assertDrageeDependency = ({root, dependencies}: DrageeDependency): RuleRes
     )
 
 export default new DddRule(
-    "Value Object Rule",
+    "Value Objects Allowed Dependencies",
     RuleSeverity.ERROR,
     (dragees: Dragee[]): RuleResult[] => 
         profiles[valueObjectProfile].findIn(dragees)

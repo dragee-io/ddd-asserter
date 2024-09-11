@@ -3,7 +3,7 @@ import { DddRule } from "../ddd-rule.model.ts";
 import { profileOf, repositoryProfile, serviceProfile } from "../ddd.model.ts";
 
 export default new DddRule(
-    "Repository Rule",
+    "Repositories Dependencies",
     RuleSeverity.ERROR,
     (dragees: Dragee[]): RuleResult[] => {
         const repositories = dragees
