@@ -1,0 +1,10 @@
+{
+    "$schema": "https://typedoc.org/schema.json",
+    "extends": ["@dragee-io/asserter-type/typedoc.json"],
+    "name": "DDD Asserter",
+    "entryPoints": ["src/rules"],
+    "out": "docs",
+    "navigationLinks": {
+        "GitHub": "https://github.com/MichaelBernasinski/ddd-asserter"
+    },
+}

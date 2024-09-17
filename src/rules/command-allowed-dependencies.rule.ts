@@ -1,4 +1,47 @@
-
+/**
+ * **commands-allowed-dependencies :**
+ * Commands can only have dependencies of type "ddd/aggregate"
+ * 
+ * ## Examples
+ * 
+ * Example of incorrect dragees for this rule: 
+ * 
+ * ```json
+ * {
+ *     "name": "AnEvent",
+ *     "profile": "ddd/event"
+ * },
+ * {
+ *     "name": "ACommand",
+ *     "profile": "ddd/command",
+ *     "depends_on": {
+ *         "AnEvent": [
+ *             "field"
+ *         ]
+ *     }
+ * }
+ * ```
+ * Example of correct dragees for this rule: 
+ * 
+ * ```json
+ * {
+ *     "name": "AnAggregate",
+ *     "profile": "ddd/aggregate"
+ * },
+ * {
+ *     "name": "ACommand",
+ *     "profile": "ddd/command",
+ *     "depends_on": {
+ *         "AnAggregate": [
+ *             "field"
+ *         ]
+ *     }
+ * }
+ * ```
+ * 
+ * @module Commands Allowed Dependencies
+ * 
+ */
 import { type Dragee, type RuleResult, expectDragee, directDependencies, type DrageeDependency, RuleSeverity } from "@dragee-io/asserter-type";
 import { DddRule } from "../ddd-rule.model.ts";
 import { profiles, profileOf, commandProfile, aggregateProfile } from "../ddd.model.ts";

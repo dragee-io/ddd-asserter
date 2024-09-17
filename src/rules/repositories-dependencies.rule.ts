@@ -1,3 +1,53 @@
+/**
+ * **repositories-dependencies :**
+ * Repositories can only be dependencies of types "ddd/service"
+ * 
+ * ## Examples
+ * 
+ * Example of incorrect dragees for this rule: 
+ * 
+ * ```json
+ * {
+ *     "name": "ARepository",
+ *     "profile": "ddd/repository"
+ * },
+ * {
+ *     "name": "AValueObject",
+ *     "profile": "ddd/value_object",
+ *     "depends_on": {
+ *         "ARepository": [
+ *             "field"
+ *         ]
+ *     }
+ * }
+ * ```
+ * Example of correct dragees for this rule: 
+ * 
+ * ```json
+ * {
+ *     "name": "ARepository",
+ *     "profile": "ddd/repository"
+ * },
+ * {
+ *     "name": "AService",
+ *     "profile": "ddd/service",
+ *     "depends_on": {
+ *         "ARepository": [
+ *             "field"
+ *         ]
+ *     }
+ * }
+ * ```
+ * ```json
+ * {
+ *     "name": "ARepository",
+ *     "profile": "ddd/repository"
+ * }
+ * ```
+ *  
+ * @module Repositories Dependencies
+ * 
+ */
 import { type Dragee, type RuleResult, RuleSeverity, expectDragee } from "@dragee-io/asserter-type";
 import { DddRule } from "../ddd-rule.model.ts";
 import { profileOf, repositoryProfile, serviceProfile } from "../ddd.model.ts";
