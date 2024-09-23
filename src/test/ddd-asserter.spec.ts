@@ -1,9 +1,6 @@
 import {describe, expect, test} from "bun:test";
-import type { Dragee, Report } from "@dragee-io/asserter-type";
-import DddAsserter from "../..";
-
-
-const asserter = DddAsserter.handler
+import { asserterHandler, type Dragee, type Report } from "@dragee-io/asserter-type";
+import dddAsserter from "../..";
 
 interface TestObject {
     dragees: Dragee[],
@@ -16,7 +13,7 @@ interface TestObject {
 function rulePassed(drageeDirectory: string) {
     test('Rule passed', () => {
         const data: TestObject = require(drageeDirectory)
-        const report = asserter(data.dragees)
+        const report = asserterHandler(dddAsserter, data.dragees)
         expect(report.pass).toBe(data.result.pass)
     })
 }
@@ -24,7 +21,7 @@ function rulePassed(drageeDirectory: string) {
 function ruleFailed(drageeDirectory: string) {
     test('Rule failed', () => {
         const data: TestObject = require(drageeDirectory)
-        const report = asserter(data.dragees)
+        const report = asserterHandler(dddAsserter, data.dragees)
 
         expect(report.pass).toBe(data.result.pass)
         data.result.errors.forEach(error => {
@@ -36,7 +33,7 @@ function ruleFailed(drageeDirectory: string) {
 describe('DDD Asserter', () => {
 
     test('assert with no dragees', () => {
-        const report: Report = asserter([])
+        const report: Report = asserterHandler(dddAsserter, [])
         expect(report.pass).toBeTrue()
         expect(report.namespace).toBe('ddd');
     });

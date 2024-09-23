@@ -34,7 +34,6 @@
  * 
  */
 import { type Dragee, type RuleResult, expectDragees, directDependencies, type DrageeDependency, RuleSeverity } from "@dragee-io/asserter-type";
-import { DddRule } from "../ddd-rule.model.ts";
 import { profiles, entityProfile, aggregateProfile } from "../ddd.model.ts";
 
 const assertDrageeDependency = ({root, dependencies}: DrageeDependency): RuleResult =>
@@ -42,12 +41,12 @@ const assertDrageeDependency = ({root, dependencies}: DrageeDependency): RuleRes
         (dependencies) => !!profiles[entityProfile].findIn(dependencies).length
     )
 
-export default new DddRule(
-    "Aggregates Mandatory Dependencies",
-    RuleSeverity.ERROR,
-    (dragees: Dragee[]): RuleResult[] => 
+export default {
+    label: "Aggregates Mandatory Dependencies",
+    severity: RuleSeverity.ERROR,
+    handler: (dragees: Dragee[]): RuleResult[] => 
         profiles[aggregateProfile].findIn(dragees)
             .map(aggregate => directDependencies(aggregate, dragees))
             .filter(dep => dep.dependencies)
             .map(dep => assertDrageeDependency(dep))
-            .flatMap(result => result));
+            .flatMap(result => result)};

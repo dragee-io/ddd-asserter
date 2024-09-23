@@ -49,13 +49,12 @@
  * 
  */
 import { type Dragee, type RuleResult, RuleSeverity, expectDragee } from "@dragee-io/asserter-type";
-import { DddRule } from "../ddd-rule.model.ts";
 import { profileOf, repositoryProfile, serviceProfile } from "../ddd.model.ts";
 
-export default new DddRule(
-    "Repositories Dependencies",
-    RuleSeverity.ERROR,
-    (dragees: Dragee[]): RuleResult[] => {
+export default {
+    label: "Repositories Dependencies",
+    severity: RuleSeverity.ERROR,
+    handler: (dragees: Dragee[]): RuleResult[] => {
         const repositories = dragees
             .filter(dragee => profileOf(dragee, repositoryProfile))
     
@@ -76,7 +75,7 @@ export default new DddRule(
                     (drageeWithRepositories) => profileOf(drageeWithRepositories, serviceProfile)
                 )
             )
-    });
+    }};
 
 const includeRepoName = (repositoryNames: Dragee[], name: string): boolean => repositoryNames.map(rn => rn.name).includes(name);
 const findRepoDragee = (repositories: Dragee[], repositoryName: string): Dragee => repositories.find(r => r.name === repositoryName)!;

@@ -43,7 +43,6 @@
  * 
  */
 import { type Dragee, type RuleResult, expectDragee, directDependencies, type DrageeDependency, RuleSeverity } from "@dragee-io/asserter-type";
-import { DddRule } from "../ddd-rule.model.ts";
 import { profiles, profileOf, commandProfile, aggregateProfile } from "../ddd.model.ts";
 
 const assertDrageeDependency = ({root, dependencies}: DrageeDependency): RuleResult[] =>
@@ -53,12 +52,12 @@ const assertDrageeDependency = ({root, dependencies}: DrageeDependency): RuleRes
         )
     )
 
-export default new DddRule(
-    "Commands Allowed Dependencies",
-    RuleSeverity.ERROR,
-    (dragees: Dragee[]): RuleResult[] => 
+export default {
+    label: "Commands Allowed Dependencies",
+    severity: RuleSeverity.ERROR,
+    handler: (dragees: Dragee[]): RuleResult[] => 
         profiles[commandProfile].findIn(dragees)
             .map(command => directDependencies(command, dragees))
             .filter(dep => dep.dependencies)
             .map(dep => assertDrageeDependency(dep))
-            .flatMap(result => result));
+            .flatMap(result => result)};

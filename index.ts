@@ -1,3 +1,6 @@
-import {DddAsserter} from "./src/ddd-asserter.model.ts";
+import { findRules } from "@dragee-io/asserter-type";
 
-export default new DddAsserter();
+export default {
+    namespace: 'ddd',
+    rules: findRules('ddd', `${import.meta.dir}/src/rules/`)
+};
