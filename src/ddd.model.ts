@@ -1,4 +1,4 @@
-import type { Dragee } from "@dragee-io/asserter-type";
+import type { Dragee } from "@dragee-io/type/common";
 
 export const entityProfile = "ddd/entity";
 export const aggregateProfile = "ddd/aggregate";

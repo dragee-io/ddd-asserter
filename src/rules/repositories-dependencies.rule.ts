@@ -48,7 +48,8 @@
  * @module Repositories Dependencies
  * 
  */
-import { type Dragee, type RuleResult, RuleSeverity, expectDragee } from "@dragee-io/asserter-type";
+import { type RuleResult, expectDragee, RuleSeverity } from "@dragee-io/type/asserter";
+import type { Dragee } from "@dragee-io/type/common";
 import { profileOf, repositoryProfile, serviceProfile } from "../ddd.model.ts";
 
 export default {

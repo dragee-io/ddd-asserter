@@ -33,7 +33,8 @@
  * @module Aggregates Mandatory Dependencies
  * 
  */
-import { type Dragee, type RuleResult, expectDragees, directDependencies, type DrageeDependency, RuleSeverity } from "@dragee-io/asserter-type";
+import { type RuleResult, expectDragees, directDependencies, RuleSeverity } from "@dragee-io/type/asserter";
+import type { Dragee, DrageeDependency } from "@dragee-io/type/common";
 import { profiles, entityProfile, aggregateProfile } from "../ddd.model.ts";
 
 const assertDrageeDependency = ({root, dependencies}: DrageeDependency): RuleResult =>
