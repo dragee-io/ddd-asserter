@@ -1,6 +1,6 @@
 {
     "$schema": "https://typedoc.org/schema.json",
-    "extends": ["@dragee-io/asserter-type/typedoc.json"],
+    "extends": ["@dragee-io/type/typedoc.json"],
     "name": "DDD Asserter",
     "entryPoints": ["src/rules"],
     "out": "docs",

@@ -7,7 +7,8 @@
     "@types/bun": "latest"
   },
   "peerDependencies": {
-    "typescript": "^5.5.0"
+    "typescript": "^5.5.0",
+    "typedoc": "^0.26.7"
   },
   "dependencies": {
     "@dragee-io/type": "https://github.com/MichaelBernasinski/dragee-model"
