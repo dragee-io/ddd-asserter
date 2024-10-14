@@ -1,11 +1,11 @@
 /**
  * **value-object-allowed-dependencies :**
  * Value Objects can only have dependencies of type "ddd/value_object"
- * 
+ *
  * ## Examples
- * 
- * Example of incorrect dragees for this rule: 
- * 
+ *
+ * Example of incorrect dragees for this rule:
+ *
  * ```json
  * {
  *     "name": "AnEvent",
@@ -21,8 +21,8 @@
  *     }
  * }
  * ```
- * Example of correct dragees for this rule: 
- * 
+ * Example of correct dragees for this rule:
+ *
  * ```json
  * {
  *     "name": "AValueObject2",
@@ -38,27 +38,36 @@
  *     }
  * }
  * ```
- * 
+ *
  * @module Value Objects Allowed Dependencies
- * 
+ *
  */
-import { type RuleResult, expectDragee, directDependencies, RuleSeverity } from "@dragee-io/type/asserter";
-import type { Dragee, DrageeDependency } from "@dragee-io/type/common";
-import { profiles, valueObjectProfile, profileOf } from "../ddd.model.ts";
+import {
+    type RuleResult,
+    RuleSeverity,
+    directDependencies,
+    expectDragee
+} from '@dragee-io/type/asserter';
+import type { Dragee, DrageeDependency } from '@dragee-io/type/common';
+import { profileOf, profiles, valueObjectProfile } from '../ddd.model.ts';
 
-const assertDrageeDependency = ({root, dependencies}: DrageeDependency): RuleResult[] =>
+const assertDrageeDependency = ({ root, dependencies }: DrageeDependency): RuleResult[] =>
     dependencies.map(dependency =>
-        expectDragee(root, dependency, `This value object must not have any dependency of type "${dependency.profile}"`, 
-            (dragee) => profileOf(dragee, valueObjectProfile)
+        expectDragee(
+            root,
+            dependency,
+            `This value object must not have any dependency of type "${dependency.profile}"`,
+            dragee => profileOf(dragee, valueObjectProfile)
         )
-    )
+    );
 
 export default {
-    label: "Value Objects Allowed Dependencies",
+    label: 'Value Objects Allowed Dependencies',
     severity: RuleSeverity.ERROR,
-    handler: (dragees: Dragee[]): RuleResult[] => 
-        profiles[valueObjectProfile].findIn(dragees)
+    handler: (dragees: Dragee[]): RuleResult[] =>
+        profiles[valueObjectProfile]
+            .findIn(dragees)
             .map(valueObject => directDependencies(valueObject, dragees))
             .filter(dep => dep.dependencies)
-            .map(dep => assertDrageeDependency(dep))
-            .flatMap(result => result)};
+            .flatMap(dep => assertDrageeDependency(dep))
+};

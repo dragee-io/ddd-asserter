@@ -1,11 +1,11 @@
 /**
  * **aggregates-allowed-dependencies :**
  * Aggregates can only have dependencies of types "ddd/value_object", "ddd/entity" and "ddd/event"
- * 
+ *
  * ## Examples
- * 
- * Example of incorrect dragees for this rule: 
- * 
+ *
+ * Example of incorrect dragees for this rule:
+ *
  * ```json
  * {
  *     "name": "AService",
@@ -21,8 +21,8 @@
  *     }
  * }
  * ```
- * Example of correct dragees for this rule: 
- * 
+ * Example of correct dragees for this rule:
+ *
  * ```json
  * {
  *     "name": "AnEntity",
@@ -38,28 +38,43 @@
  *     }
  * }
  * ```
- * 
+ *
  * @module Aggregates Allowed Dependencies
- * 
+ *
  */
-import { type RuleResult, expectDragee, directDependencies, RuleSeverity } from "@dragee-io/type/asserter";
-import type { Dragee, DrageeDependency } from "@dragee-io/type/common";
-import { profiles, profileOf, aggregateProfile, valueObjectProfile, entityProfile, eventProfile } from "../ddd.model.ts";
+import {
+    type RuleResult,
+    RuleSeverity,
+    directDependencies,
+    expectDragee
+} from '@dragee-io/type/asserter';
+import type { Dragee, DrageeDependency } from '@dragee-io/type/common';
+import {
+    aggregateProfile,
+    entityProfile,
+    eventProfile,
+    profileOf,
+    profiles,
+    valueObjectProfile
+} from '../ddd.model.ts';
 
-const assertDrageeDependency = ({root, dependencies}: DrageeDependency): RuleResult[] => 
-    dependencies.map(dependency => 
-        expectDragee(root, dependency, `This aggregate must not have any dependency of type "${dependency.profile}"`, 
-            (dragee) => profileOf(dragee, valueObjectProfile, entityProfile, eventProfile)
+const assertDrageeDependency = ({ root, dependencies }: DrageeDependency): RuleResult[] =>
+    dependencies.map(dependency =>
+        expectDragee(
+            root,
+            dependency,
+            `This aggregate must not have any dependency of type "${dependency.profile}"`,
+            dragee => profileOf(dragee, valueObjectProfile, entityProfile, eventProfile)
         )
     );
 
 export default {
-    label: "Aggregates Allowed Dependencies",
+    label: 'Aggregates Allowed Dependencies',
     severity: RuleSeverity.ERROR,
     handler: (dragees: Dragee[]): RuleResult[] =>
-        profiles[aggregateProfile].findIn(dragees)
+        profiles[aggregateProfile]
+            .findIn(dragees)
             .map(aggregate => directDependencies(aggregate, dragees))
             .filter(dep => dep.dependencies)
-            .map(dep => assertDrageeDependency(dep))
-            .flatMap(result => result)};
-        
+            .flatMap(dep => assertDrageeDependency(dep))
+};
