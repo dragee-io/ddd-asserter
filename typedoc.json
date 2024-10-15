@@ -5,6 +5,6 @@
     "entryPoints": ["src/rules"],
     "out": "docs",
     "navigationLinks": {
-        "GitHub": "https://github.com/MichaelBernasinski/ddd-asserter"
+        "GitHub": "https://github.com/dragee-io/ddd-asserter"
     }
 }
