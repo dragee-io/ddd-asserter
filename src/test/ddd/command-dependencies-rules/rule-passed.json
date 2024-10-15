@@ -1,30 +1,25 @@
 {
-  
     "dragees": [
-      {
-        "name": "AnAggregate",
-        "profile": "ddd/aggregate",
-        "depends_on": {
-          "AnEntity": [
-            "field"
-          ]
+        {
+            "name": "AnAggregate",
+            "profile": "ddd/aggregate",
+            "depends_on": {
+                "AnEntity": ["field"]
+            }
+        },
+        {
+            "name": "AnEntity",
+            "profile": "ddd/entity"
+        },
+        {
+            "name": "ACommand",
+            "profile": "ddd/command",
+            "depends_on": {
+                "AnAggregate": ["field"]
+            }
         }
-      },
-      {
-        "name": "AnEntity",
-        "profile": "ddd/entity"
-      },
-      {
-        "name": "ACommand",
-        "profile": "ddd/command",
-        "depends_on": {
-          "AnAggregate": [
-            "field"
-          ]
-        }
-      }
     ],
-  "result": {
-    "pass": true
-  }
+    "result": {
+        "pass": true
+    }
 }

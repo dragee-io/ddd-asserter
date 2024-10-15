@@ -1,34 +1,28 @@
 {
-  "dragees": [
-    {
-      "name": "AnEntity",
-      "profile": "ddd/entity"
-    },
-    {
-      "name": "AnEvent",
-      "profile": "ddd/event"
-    },
-    {
-      "name": "AValueObject",
-      "profile": "ddd/value_object"
-    },
-    {
-      "name": "AnAggregate",
-      "profile": "ddd/aggregate",
-      "depends_on": {
-        "AnEntity": [
-          "field"
-        ],
-        "AValueObject": [
-          "field"
-        ],
-        "AnEvent": [
-          "field"
-        ]
-      }
+    "dragees": [
+        {
+            "name": "AnEntity",
+            "profile": "ddd/entity"
+        },
+        {
+            "name": "AnEvent",
+            "profile": "ddd/event"
+        },
+        {
+            "name": "AValueObject",
+            "profile": "ddd/value_object"
+        },
+        {
+            "name": "AnAggregate",
+            "profile": "ddd/aggregate",
+            "depends_on": {
+                "AnEntity": ["field"],
+                "AValueObject": ["field"],
+                "AnEvent": ["field"]
+            }
+        }
+    ],
+    "result": {
+        "pass": true
     }
-  ],
-  "result": {
-    "pass": true
-  }
 }

@@ -1,39 +1,31 @@
 {
-  "dragees": [
-    {
-      "name": "AnAggregate",
-      "profile": "ddd/aggregate",
-      "depends_on":{
-        "AnEntity": [
-          "field"
-        ]
-      }
-    },
-    {
-      "name": "AValueObject",
-      "profile": "ddd/value_object"
-    },
-    {
-      "name": "AnEntity",
-      "profile": "ddd/entity"
-    },
-    {
-      "name": "AFactory",
-      "profile": "ddd/factory",
-      "depends_on": {
-        "AnAggregate": [
-          "field"
-        ],
-        "AnEntity":[
-          "field"
-        ],
-        "AValueObject":[
-          "field"
-        ]
-      }
+    "dragees": [
+        {
+            "name": "AnAggregate",
+            "profile": "ddd/aggregate",
+            "depends_on": {
+                "AnEntity": ["field"]
+            }
+        },
+        {
+            "name": "AValueObject",
+            "profile": "ddd/value_object"
+        },
+        {
+            "name": "AnEntity",
+            "profile": "ddd/entity"
+        },
+        {
+            "name": "AFactory",
+            "profile": "ddd/factory",
+            "depends_on": {
+                "AnAggregate": ["field"],
+                "AnEntity": ["field"],
+                "AValueObject": ["field"]
+            }
+        }
+    ],
+    "result": {
+        "pass": true
     }
-  ],
-  "result": {
-    "pass": true
-  }
 }

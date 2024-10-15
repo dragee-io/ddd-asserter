@@ -1,41 +1,35 @@
 {
-  "dragees": [
-    {
-      "name": "AnEntity",
-      "profile": "ddd/entity"
-    },
-    {
-      "name": "AValueObject",
-      "profile": "ddd/value_object"
-    },
-    {
-      "name": "ARepository",
-      "profile": "ddd/repository"
-    },
-    {
-      "name": "AFactory",
-      "profile": "ddd/factory",
-      "depends_on": {
-        "AValueObject": [
-          "field"
-        ],
-        "AnEntity": [
-          "field"
-        ],
-        "ARepository": [
-          "field"
+    "dragees": [
+        {
+            "name": "AnEntity",
+            "profile": "ddd/entity"
+        },
+        {
+            "name": "AValueObject",
+            "profile": "ddd/value_object"
+        },
+        {
+            "name": "ARepository",
+            "profile": "ddd/repository"
+        },
+        {
+            "name": "AFactory",
+            "profile": "ddd/factory",
+            "depends_on": {
+                "AValueObject": ["field"],
+                "AnEntity": ["field"],
+                "ARepository": ["field"]
+            }
+        }
+    ],
+    "result": {
+        "pass": false,
+        "errors": [
+            {
+                "drageeName": "AFactory",
+                "message": "This factory must not have any dependency of type \"ddd/repository\"",
+                "ruleId": "ddd/factories-allowed-dependencies"
+            }
         ]
-      }
     }
-  ],
-  "result": {
-    "pass": false,
-    "errors": [
-      {
-        "drageeName": "AFactory",
-        "message": "This factory must not have any dependency of type \"ddd/repository\"",
-        "ruleId": "ddd/factories-allowed-dependencies"
-      }
-    ]
-  }
 }

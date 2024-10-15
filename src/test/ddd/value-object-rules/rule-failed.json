@@ -1,27 +1,25 @@
 {
-  "dragees": [
-  {
-    "name": "AService",
-    "profile": "ddd/service"
-  },
-  {
-    "name": "AValueObject",
-    "profile": "ddd/value_object",
-    "depends_on": {
-      "AService": [
-        "field"
-      ]
+    "dragees": [
+        {
+            "name": "AService",
+            "profile": "ddd/service"
+        },
+        {
+            "name": "AValueObject",
+            "profile": "ddd/value_object",
+            "depends_on": {
+                "AService": ["field"]
+            }
+        }
+    ],
+    "result": {
+        "pass": false,
+        "errors": [
+            {
+                "drageeName": "AValueObject",
+                "message": "This value object must not have any dependency of type \"ddd/service\"",
+                "ruleId": "ddd/value-objects-allowed-dependencies"
+            }
+        ]
     }
-  }
-  ],
-  "result": {
-    "pass": false,
-    "errors": [
-      {
-        "drageeName": "AValueObject",
-        "message": "This value object must not have any dependency of type \"ddd/service\"",
-        "ruleId": "ddd/value-objects-allowed-dependencies"
-      }
-    ]
-  }
 }

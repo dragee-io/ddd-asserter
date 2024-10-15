@@ -1,34 +1,30 @@
 {
-  "dragees": [
-    {
-      "name": "AnEvent",
-      "profile": "ddd/event"
-    },
-    {
-      "name": "AValueObject",
-      "profile": "ddd/value_object"
-    },
-    {
-      "name": "AService",
-      "profile": "ddd/service",
-      "depends_on": {
-        "AValueObject": [
-          "field"
-        ],
-        "AnEvent": [
-          "field"
+    "dragees": [
+        {
+            "name": "AnEvent",
+            "profile": "ddd/event"
+        },
+        {
+            "name": "AValueObject",
+            "profile": "ddd/value_object"
+        },
+        {
+            "name": "AService",
+            "profile": "ddd/service",
+            "depends_on": {
+                "AValueObject": ["field"],
+                "AnEvent": ["field"]
+            }
+        }
+    ],
+    "result": {
+        "pass": false,
+        "errors": [
+            {
+                "drageeName": "AService",
+                "message": "This service must not have any dependency of type \"ddd/event\"",
+                "ruleId": "ddd/services-allowed-dependencies"
+            }
         ]
-      }
     }
-  ],
-  "result": {
-    "pass": false,
-    "errors": [
-      {
-        "drageeName": "AService",
-        "message": "This service must not have any dependency of type \"ddd/event\"",
-        "ruleId": "ddd/services-allowed-dependencies"
-      }
-    ]
-  }
 }
