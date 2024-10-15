@@ -1,23 +1,25 @@
 {
-  "dragees": [
-    {
-      "name": "AValueObject",
-      "kind_of": "ddd/value_object"
-    },
-    {
-      "name": "AnAggregate",
-      "kind_of": "ddd/aggregate",
-      "depends_on": {
-        "AValueObject": [
-          "field"
+    "dragees": [
+        {
+            "name": "AValueObject",
+            "profile": "ddd/value_object"
+        },
+        {
+            "name": "AnAggregate",
+            "profile": "ddd/aggregate",
+            "depends_on": {
+                "AValueObject": ["field"]
+            }
+        }
+    ],
+    "result": {
+        "pass": false,
+        "errors": [
+            {
+                "drageeName": "AnAggregate",
+                "message": "This aggregate must at least contain a \"ddd/entity\" type dragee",
+                "ruleId": "ddd/aggregates-mandatory-dependencies"
+            }
         ]
-      }
     }
-  ],
-  "result": {
-    "pass": false,
-    "errors": [
-      "The aggregate \"AnAggregate\" must at least contain a \"ddd/entity\" type dragee"
-    ]
-  }
 }

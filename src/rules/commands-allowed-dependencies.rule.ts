@@ -1,6 +1,6 @@
 /**
- * **services-allowed-dependencies :**
- * Services can only have dependencies of types "ddd/value_object", "ddd/entity", "ddd/repository" and "ddd/command"
+ * **commands-allowed-dependencies :**
+ * Commands can only have dependencies of type "ddd/aggregate"
  *
  * ## Examples
  *
@@ -12,8 +12,8 @@
  *     "profile": "ddd/event"
  * },
  * {
- *     "name": "AService",
- *     "profile": "ddd/service",
+ *     "name": "ACommand",
+ *     "profile": "ddd/command",
  *     "depends_on": {
  *         "AnEvent": [
  *             "field"
@@ -25,21 +25,21 @@
  *
  * ```json
  * {
- *     "name": "AnEntity",
- *     "profile": "ddd/entity"
+ *     "name": "AnAggregate",
+ *     "profile": "ddd/aggregate"
  * },
  * {
- *     "name": "AService",
- *     "profile": "ddd/service",
+ *     "name": "ACommand",
+ *     "profile": "ddd/command",
  *     "depends_on": {
- *         "AnEntity": [
+ *         "AnAggregate": [
  *             "field"
  *         ]
  *     }
  * }
  * ```
  *
- * @module Services Allowed Dependencies
+ * @module Commands Allowed Dependencies
  *
  */
 import {
@@ -49,40 +49,25 @@ import {
     expectDragee
 } from '@dragee-io/type/asserter';
 import type { Dragee, DrageeDependency } from '@dragee-io/type/common';
-import {
-    commandProfile,
-    entityProfile,
-    profileOf,
-    profiles,
-    repositoryProfile,
-    serviceProfile,
-    valueObjectProfile
-} from '../ddd.model.ts';
+import { aggregateProfile, commandProfile, profileOf, profiles } from '../ddd.model.ts';
 
 const assertDrageeDependency = ({ root, dependencies }: DrageeDependency): RuleResult[] =>
     dependencies.map(dependency =>
         expectDragee(
             root,
             dependency,
-            `This service must not have any dependency of type "${dependency.profile}"`,
-            dragee =>
-                profileOf(
-                    dragee,
-                    repositoryProfile,
-                    entityProfile,
-                    valueObjectProfile,
-                    commandProfile
-                )
+            `This command must not have any dependency of type "${dependency.profile}"`,
+            dragee => profileOf(dragee, aggregateProfile)
         )
     );
 
 export default {
-    label: 'Services Allowed Dependencies',
+    label: 'Commands Allowed Dependencies',
     severity: RuleSeverity.ERROR,
     handler: (dragees: Dragee[]): RuleResult[] =>
-        profiles[serviceProfile]
+        profiles[commandProfile]
             .findIn(dragees)
-            .map(service => directDependencies(service, dragees))
+            .map(command => directDependencies(command, dragees))
             .filter(dep => dep.dependencies)
             .flatMap(dep => assertDrageeDependency(dep))
 };

@@ -1,6 +1,6 @@
 /**
- * **services-allowed-dependencies :**
- * Services can only have dependencies of types "ddd/value_object", "ddd/entity", "ddd/repository" and "ddd/command"
+ * **value-object-allowed-dependencies :**
+ * Value Objects can only have dependencies of type "ddd/value_object"
  *
  * ## Examples
  *
@@ -12,8 +12,8 @@
  *     "profile": "ddd/event"
  * },
  * {
- *     "name": "AService",
- *     "profile": "ddd/service",
+ *     "name": "AValueObject1",
+ *     "profile": "ddd/value_object",
  *     "depends_on": {
  *         "AnEvent": [
  *             "field"
@@ -25,21 +25,21 @@
  *
  * ```json
  * {
- *     "name": "AnEntity",
- *     "profile": "ddd/entity"
+ *     "name": "AValueObject2",
+ *     "profile": "ddd/value_object"
  * },
  * {
- *     "name": "AService",
- *     "profile": "ddd/service",
+ *     "name": "AValueObject1",
+ *     "profile": "ddd/value_object",
  *     "depends_on": {
- *         "AnEntity": [
+ *         "AValueObject2": [
  *             "field"
  *         ]
  *     }
  * }
  * ```
  *
- * @module Services Allowed Dependencies
+ * @module Value Objects Allowed Dependencies
  *
  */
 import {
@@ -49,40 +49,25 @@ import {
     expectDragee
 } from '@dragee-io/type/asserter';
 import type { Dragee, DrageeDependency } from '@dragee-io/type/common';
-import {
-    commandProfile,
-    entityProfile,
-    profileOf,
-    profiles,
-    repositoryProfile,
-    serviceProfile,
-    valueObjectProfile
-} from '../ddd.model.ts';
+import { profileOf, profiles, valueObjectProfile } from '../ddd.model.ts';
 
 const assertDrageeDependency = ({ root, dependencies }: DrageeDependency): RuleResult[] =>
     dependencies.map(dependency =>
         expectDragee(
             root,
             dependency,
-            `This service must not have any dependency of type "${dependency.profile}"`,
-            dragee =>
-                profileOf(
-                    dragee,
-                    repositoryProfile,
-                    entityProfile,
-                    valueObjectProfile,
-                    commandProfile
-                )
+            `This value object must not have any dependency of type "${dependency.profile}"`,
+            dragee => profileOf(dragee, valueObjectProfile)
         )
     );
 
 export default {
-    label: 'Services Allowed Dependencies',
+    label: 'Value Objects Allowed Dependencies',
     severity: RuleSeverity.ERROR,
     handler: (dragees: Dragee[]): RuleResult[] =>
-        profiles[serviceProfile]
+        profiles[valueObjectProfile]
             .findIn(dragees)
-            .map(service => directDependencies(service, dragees))
+            .map(valueObject => directDependencies(valueObject, dragees))
             .filter(dep => dep.dependencies)
             .flatMap(dep => assertDrageeDependency(dep))
 };

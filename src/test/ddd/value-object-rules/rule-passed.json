@@ -1,20 +1,18 @@
 {
-  "dragees": [
-    {
-      "name": "AValueObject2",
-      "kind_of": "ddd/value_object"
-    },
-    {
-      "name": "AValueObject",
-      "kind_of": "ddd/value_object",
-      "depends_on": {
-        "AValueObject2": [
-          "field"
-        ]
-      }
+    "dragees": [
+        {
+            "name": "AValueObject2",
+            "profile": "ddd/value_object"
+        },
+        {
+            "name": "AValueObject",
+            "profile": "ddd/value_object",
+            "depends_on": {
+                "AValueObject2": ["field"]
+            }
+        }
+    ],
+    "result": {
+        "pass": true
     }
-  ],
-  "result": {
-    "pass": true
-  }
 }

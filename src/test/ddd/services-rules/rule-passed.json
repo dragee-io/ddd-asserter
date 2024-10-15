@@ -1,42 +1,33 @@
 {
-  "dragees": [
-    {
-      "name": "ARepository",
-      "kind_of": "ddd/repository"
-    },
-    {
-      "name": "AValueObject",
-      "kind_of": "ddd/value_object"
-    },
-    {
-      "name": "AnEntity",
-      "kind_of": "ddd/entity"
-    },
-    {
-      "name": "ACommand",
-      "kind_of": "ddd/command"
-
-    },
-    {
-      "name": "AService",
-      "kind_of": "ddd/service",
-      "depends_on": {
-        "ARepository": [
-          "field"
-        ],
-        "AnEntity":[
-          "field"
-        ],
-        "AValueObject":[
-          "field"
-        ],
-        "ACommand":[
-          "field"
-        ]
-      }
+    "dragees": [
+        {
+            "name": "ARepository",
+            "profile": "ddd/repository"
+        },
+        {
+            "name": "AValueObject",
+            "profile": "ddd/value_object"
+        },
+        {
+            "name": "AnEntity",
+            "profile": "ddd/entity"
+        },
+        {
+            "name": "ACommand",
+            "profile": "ddd/command"
+        },
+        {
+            "name": "AService",
+            "profile": "ddd/service",
+            "depends_on": {
+                "ARepository": ["field"],
+                "AnEntity": ["field"],
+                "AValueObject": ["field"],
+                "ACommand": ["field"]
+            }
+        }
+    ],
+    "result": {
+        "pass": true
     }
-  ],
-  "result": {
-    "pass": true
-  }
 }

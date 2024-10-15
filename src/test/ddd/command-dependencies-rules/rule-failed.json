@@ -1,23 +1,25 @@
 {
-  "dragees": [
-    {
-      "name": "AnEvent",
-      "kind_of": "ddd/event"
-    },
-    {
-      "name": "ACommand",
-      "kind_of": "ddd/command",
-      "depends_on": {
-        "AnEvent": [
-          "field"
+    "dragees": [
+        {
+            "name": "AnEvent",
+            "profile": "ddd/event"
+        },
+        {
+            "name": "ACommand",
+            "profile": "ddd/command",
+            "depends_on": {
+                "AnEvent": ["field"]
+            }
+        }
+    ],
+    "result": {
+        "pass": false,
+        "errors": [
+            {
+                "drageeName": "ACommand",
+                "message": "This command must not have any dependency of type \"ddd/event\"",
+                "ruleId": "ddd/commands-allowed-dependencies"
+            }
         ]
-      }
     }
-  ],
-  "result": {
-    "pass": false,
-    "errors": [
-      "The command \"ACommand\" must not have any dependency of type \"ddd/event\""
-    ]
-  }
 }

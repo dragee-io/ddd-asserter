@@ -1,37 +1,42 @@
-import type { Dragee } from "@dragee-io/asserter-type";
+import type { Dragee } from '@dragee-io/type/common';
 
-const kindsName =
-  [
-    'ddd/aggregate' 
-    , 'ddd/entity' 
-    , 'ddd/event' 
-    , 'ddd/repository' 
-    , 'ddd/service' 
-    , 'ddd/value_object' 
-    , 'ddd/factory' 
-    , 'ddd/command'
-  ]; 
+export const entityProfile = 'ddd/entity';
+export const aggregateProfile = 'ddd/aggregate';
+export const commandProfile = 'ddd/command';
+export const factoryProfile = 'ddd/factory';
+export const serviceProfile = 'ddd/service';
+export const valueObjectProfile = 'ddd/value_object';
+export const eventProfile = 'ddd/event';
+export const repositoryProfile = 'ddd/repository';
 
-export type Kind = typeof kindsName[number]
+const profilesName = [
+    aggregateProfile,
+    entityProfile,
+    eventProfile,
+    repositoryProfile,
+    serviceProfile,
+    valueObjectProfile,
+    factoryProfile,
+    commandProfile
+];
 
-export type DDDKindChecks = {
-  [kind in Kind]: {
-   findIn: (dragees : Dragee[]) => Dragee[],
-   is:(kind : string) => boolean
-  }
+export type Profile = (typeof profilesName)[number];
+
+type DDDProfileChecks = {
+    [profile in Profile]: {
+        findIn: (dragees: Dragee[]) => Dragee[];
+        is: (profile: string) => boolean;
+    };
+};
+
+export const profiles: DDDProfileChecks = {} as DDDProfileChecks;
+
+for (const profile of profilesName) {
+    profiles[profile] = {
+        is: (value: string) => value === profile,
+        findIn: (dragees: Dragee[]) => dragees.filter(dragee => dragee.profile === profile)
+    };
 }
 
-export type DDDKindCheck<T extends Kind> = (value: string) => value is T;
-
-export const kinds: DDDKindChecks = {} as DDDKindChecks;
-
-
-kindsName.map(kind => {
-  kinds[kind] = {
-    is: (value: string) => value === kind,
-    findIn: (dragees: Dragee[]) => dragees.filter(dragee => dragee.kind_of === kind)
-  }
-  return kinds[kind];
-})
-
-
+export const profileOf = (dragee: Dragee, ...profilesFilter: Profile[]): boolean =>
+    profilesFilter.map(kf => profiles[kf].is(dragee.profile)).some(b => b);
