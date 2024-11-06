@@ -1,0 +1,40 @@
+{
+    "dragees": [
+        {
+            "name": "AValueObject1",
+            "profile": "ddd/entity"
+        },
+        {
+            "name": "AValueObject2",
+            "profile": "ddd/entity"
+        },
+        {
+            "name": "AValueObject3",
+            "profile": "ddd/entity"
+        },
+        {
+            "name": "AValueObject4",
+            "profile": "ddd/entity"
+        },
+        {
+            "name": "AnAggregate",
+            "profile": "ddd/aggregate",
+            "depends_on": {
+                "AValueObject1": ["field"],
+                "AValueObject2": ["field"],
+                "AValueObject3": ["field"],
+                "AValueObject4": ["field"]
+            }
+        }
+    ],
+    "result": {
+        "pass": false,
+        "errors": [
+            {
+                "drageeName": "AnAggregate",
+                "message": "This aggregate mustn't contain more than 3 \"ddd/entity\" type of dragees",
+                "ruleId": "ddd/aggregates-size-limits"
+            }
+        ]
+    }
+}

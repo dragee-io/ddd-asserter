@@ -42,6 +42,7 @@ describe('DDD Asserter', () => {
     describe('Aggregate Rules', () => {
         const AGGREGATE_DEPENDENCY_DRAGEE_TEST_DIRECTORY = './ddd/aggregates-dependencies-rules';
         const AGGREGATE_MANDATORY_DRAGEE_TEST_DIRECTORY = './ddd/aggregates-mandatories-rules';
+        const AGGREGATE_SIZE_LIMITS_DRAGEE_TEST_DIRECTORY = './ddd/aggregates-size-limits-rules';
 
         describe('An aggregate must contain only value objects, entities, or events', () => {
             rulePassed(`${AGGREGATE_DEPENDENCY_DRAGEE_TEST_DIRECTORY}/rule-passed.json`);
@@ -50,6 +51,11 @@ describe('DDD Asserter', () => {
         describe('An aggregate must at least contains one entity', () => {
             rulePassed(`${AGGREGATE_MANDATORY_DRAGEE_TEST_DIRECTORY}/rule-passed.json`);
             ruleFailed(`${AGGREGATE_MANDATORY_DRAGEE_TEST_DIRECTORY}/rule-failed.json`);
+        });
+
+        describe(`An aggregate must not have more than 3 dependencies to entities`, () => {
+            rulePassed(`${AGGREGATE_SIZE_LIMITS_DRAGEE_TEST_DIRECTORY}/rule-passed.json`);
+            ruleFailed(`${AGGREGATE_SIZE_LIMITS_DRAGEE_TEST_DIRECTORY}/rule-failed.json`);
         });
     });
     describe('Repository Rules', () => {
