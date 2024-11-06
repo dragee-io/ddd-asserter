@@ -1,0 +1,28 @@
+{
+    "dragees": [
+        {
+            "name": "AValueObject1",
+            "profile": "ddd/entity"
+        },
+        {
+            "name": "AValueObject2",
+            "profile": "ddd/entity"
+        },
+        {
+            "name": "AValueObject3",
+            "profile": "ddd/entity"
+        },
+        {
+            "name": "AnAggregate",
+            "profile": "ddd/aggregate",
+            "depends_on": {
+                "AValueObject1": ["field"],
+                "AValueObject2": ["field"],
+                "AValueObject3": ["field"]
+            }
+        }
+    ],
+    "result": {
+        "pass": true
+    }
+}
