@@ -18,7 +18,7 @@ const profilesName = [
     valueObjectProfile,
     factoryProfile,
     commandProfile
-];
+] as const;
 
 export type Profile = (typeof profilesName)[number];
 
