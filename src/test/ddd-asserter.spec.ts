@@ -42,102 +42,108 @@ describe('DDD Asserter', () => {
     });
 
     describe('Aggregate Rules', () => {
+        const AGGREGATE_FOLDER = `${FOLDER}aggregates-rules/`;
         const AGGREGATE_ALLOWED_DEPENDENCIES_RULE = 'aggregates-allowed-dependencies';
         const AGGREGATE_MANDATORY_DEPENDENCIES_RULE = 'aggregates-mandatory-dependencies';
         const AGGREGATE_SIZE_LIMITS_RULE = 'aggregates-size-limits';
 
         describe('An aggregate must contain only value objects, entities, or events', () => {
             rulePassed(
-                `${FOLDER}${AGGREGATE_ALLOWED_DEPENDENCIES_RULE}-rule/rule-passed.json`,
+                `${AGGREGATE_FOLDER}${AGGREGATE_ALLOWED_DEPENDENCIES_RULE}-rule/rule-passed.json`,
                 AGGREGATE_ALLOWED_DEPENDENCIES_RULE
             );
             ruleFailed(
-                `${FOLDER}${AGGREGATE_ALLOWED_DEPENDENCIES_RULE}-rule/rule-failed.json`,
+                `${AGGREGATE_FOLDER}${AGGREGATE_ALLOWED_DEPENDENCIES_RULE}-rule/rule-failed.json`,
                 AGGREGATE_ALLOWED_DEPENDENCIES_RULE
             );
         });
 
         describe('An aggregate must at least contains one entity', () => {
             rulePassed(
-                `${FOLDER}${AGGREGATE_MANDATORY_DEPENDENCIES_RULE}-rule/rule-passed.json`,
+                `${AGGREGATE_FOLDER}${AGGREGATE_MANDATORY_DEPENDENCIES_RULE}-rule/rule-passed.json`,
                 AGGREGATE_MANDATORY_DEPENDENCIES_RULE
             );
             ruleFailed(
-                `${FOLDER}${AGGREGATE_MANDATORY_DEPENDENCIES_RULE}-rule/rule-failed.json`,
+                `${AGGREGATE_FOLDER}${AGGREGATE_MANDATORY_DEPENDENCIES_RULE}-rule/rule-failed.json`,
                 AGGREGATE_MANDATORY_DEPENDENCIES_RULE
             );
         });
 
         describe(`An aggregate must not have more than 3 dependencies to entities`, () => {
             rulePassed(
-                `${FOLDER}${AGGREGATE_SIZE_LIMITS_RULE}-rule/rule-passed.json`,
+                `${AGGREGATE_FOLDER}${AGGREGATE_SIZE_LIMITS_RULE}-rule/rule-passed.json`,
                 AGGREGATE_SIZE_LIMITS_RULE
             );
             ruleFailed(
-                `${FOLDER}${AGGREGATE_SIZE_LIMITS_RULE}-rule/rule-failed.json`,
+                `${AGGREGATE_FOLDER}${AGGREGATE_SIZE_LIMITS_RULE}-rule/rule-failed.json`,
                 AGGREGATE_SIZE_LIMITS_RULE
             );
         });
     });
 
     describe('Repository Rules', () => {
+        const REPOSITORY_FOLDER = `${FOLDER}repositories-rules/`
         const REPOSITORY_DEPENDENCIES_RULE = 'repositories-dependencies';
 
         describe('A repository must be called only inside a Service', () => {
-            rulePassed(`${FOLDER}${REPOSITORY_DEPENDENCIES_RULE}-rule/rule-passed.json`, REPOSITORY_DEPENDENCIES_RULE);
-            ruleFailed(`${FOLDER}${REPOSITORY_DEPENDENCIES_RULE}-rule/rule-failed.json`, REPOSITORY_DEPENDENCIES_RULE);
+            rulePassed(`${REPOSITORY_FOLDER}${REPOSITORY_DEPENDENCIES_RULE}-rule/rule-passed.json`, REPOSITORY_DEPENDENCIES_RULE);
+            ruleFailed(`${REPOSITORY_FOLDER}${REPOSITORY_DEPENDENCIES_RULE}-rule/rule-failed.json`, REPOSITORY_DEPENDENCIES_RULE);
         });
     });
 
     describe('Value object rules', () => {
+        const VALUE_OBJECTS_FOLDER = `${FOLDER}value-objects-rules/`
         const VALUE_OBJECT_ALLOWED_DEPENDENCIES_RULE = 'value-object-allowed-dependencies';
 
         describe('Should only contains entities', () => {
             rulePassed(
-                `${FOLDER}${VALUE_OBJECT_ALLOWED_DEPENDENCIES_RULE}-rule/rule-passed.json`,
+                `${VALUE_OBJECTS_FOLDER}${VALUE_OBJECT_ALLOWED_DEPENDENCIES_RULE}-rule/rule-passed.json`,
                 VALUE_OBJECT_ALLOWED_DEPENDENCIES_RULE
             );
             ruleFailed(
-                `${FOLDER}${VALUE_OBJECT_ALLOWED_DEPENDENCIES_RULE}-rule/rule-failed.json`,
+                `${VALUE_OBJECTS_FOLDER}${VALUE_OBJECT_ALLOWED_DEPENDENCIES_RULE}-rule/rule-failed.json`,
                 VALUE_OBJECT_ALLOWED_DEPENDENCIES_RULE
             );
         });
     });
 
     describe('Service rules', () => {
+        const SERVICE_FOLDER = `${FOLDER}services-rules/`
         const SERVICE_ALLOWED_DEPENDENCIES_RULE = 'services-allowed-dependencies';
 
         describe('Should only contains repositories, entities or value object', () => {
             rulePassed(
-                `${FOLDER}${SERVICE_ALLOWED_DEPENDENCIES_RULE}-rule/rule-passed.json`,
+                `${SERVICE_FOLDER}${SERVICE_ALLOWED_DEPENDENCIES_RULE}-rule/rule-passed.json`,
                 SERVICE_ALLOWED_DEPENDENCIES_RULE
             );
             ruleFailed(
-                `${FOLDER}${SERVICE_ALLOWED_DEPENDENCIES_RULE}-rule/rule-failed.json`,
+                `${SERVICE_FOLDER}${SERVICE_ALLOWED_DEPENDENCIES_RULE}-rule/rule-failed.json`,
                 SERVICE_ALLOWED_DEPENDENCIES_RULE
             );
         });
     });
 
     describe('Factory rules', () => {
+        const FACTORIES_FOLDER = `${FOLDER}factories-rules/`;
         const FACTORIES_ALLOWED_DEPENDENCIES_RULE = 'factories-allowed-dependencies';
         
         describe('Should only contains entities, value objects or aggregates', () => {
-            rulePassed(`${FOLDER}${FACTORIES_ALLOWED_DEPENDENCIES_RULE}-rule/rule-passed.json`, FACTORIES_ALLOWED_DEPENDENCIES_RULE);
-            ruleFailed(`${FOLDER}${FACTORIES_ALLOWED_DEPENDENCIES_RULE}-rule/rule-failed.json`, FACTORIES_ALLOWED_DEPENDENCIES_RULE);
+            rulePassed(`${FACTORIES_FOLDER}${FACTORIES_ALLOWED_DEPENDENCIES_RULE}-rule/rule-passed.json`, FACTORIES_ALLOWED_DEPENDENCIES_RULE);
+            ruleFailed(`${FACTORIES_FOLDER}${FACTORIES_ALLOWED_DEPENDENCIES_RULE}-rule/rule-failed.json`, FACTORIES_ALLOWED_DEPENDENCIES_RULE);
         });
     });
 
     describe('Command rules', () => {
+        const COMMAND_FOLDER = `${FOLDER}commands-rules/`;
         const COMMANDS_ALLOWED_DEPENDENCIES_RULE = 'commands-allowed-dependencies';
 
         describe('Should only contains Aggregate', () => {
             rulePassed(
-                `${FOLDER}${COMMANDS_ALLOWED_DEPENDENCIES_RULE}-rule/rule-passed.json`,
+                `${COMMAND_FOLDER}${COMMANDS_ALLOWED_DEPENDENCIES_RULE}-rule/rule-passed.json`,
                 COMMANDS_ALLOWED_DEPENDENCIES_RULE
             );
             ruleFailed(
-                `${FOLDER}${COMMANDS_ALLOWED_DEPENDENCIES_RULE}-rule/rule-failed.json`,
+                `${COMMAND_FOLDER}${COMMANDS_ALLOWED_DEPENDENCIES_RULE}-rule/rule-failed.json`,
                 COMMANDS_ALLOWED_DEPENDENCIES_RULE
             );
         });
