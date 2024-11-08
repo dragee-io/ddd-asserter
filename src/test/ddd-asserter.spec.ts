@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import { type Report, asserterHandler } from '@dragee-io/type/asserter';
+import { type Report, asserterHandler, generateReportForRule } from '@dragee-io/type/asserter';
 import type { Dragee } from '@dragee-io/type/common';
 
 import dddAsserter from '../..';
@@ -12,18 +12,18 @@ interface TestObject {
     };
 }
 
-function rulePassed(drageeDirectory: string) {
+function rulePassed(drageeDirectory: string, file: string) {
     test('Rule passed', () => {
         const data: TestObject = require(drageeDirectory);
-        const report = asserterHandler(dddAsserter, data.dragees);
+        const report = generateReportForRule(dddAsserter, data.dragees, file);
         expect(report.pass).toBe(data.result.pass);
     });
 }
 
-function ruleFailed(drageeDirectory: string) {
+function ruleFailed(drageeDirectory: string, file: string) {
     test('Rule failed', () => {
         const data: TestObject = require(drageeDirectory);
-        const report = asserterHandler(dddAsserter, data.dragees);
+        const report = generateReportForRule(dddAsserter, data.dragees, file);
 
         expect(report.pass).toBe(data.result.pass);
         for (const error of data.result.errors) {
@@ -33,6 +33,8 @@ function ruleFailed(drageeDirectory: string) {
 }
 
 describe('DDD Asserter', () => {
+    const FOLDER = './ddd/';
+
     test('assert with no dragees', () => {
         const report: Report = asserterHandler(dddAsserter, []);
         expect(report.pass).toBeTrue();
@@ -40,63 +42,104 @@ describe('DDD Asserter', () => {
     });
 
     describe('Aggregate Rules', () => {
-        const AGGREGATE_DEPENDENCY_DRAGEE_TEST_DIRECTORY = './ddd/aggregates-dependencies-rules';
-        const AGGREGATE_MANDATORY_DRAGEE_TEST_DIRECTORY = './ddd/aggregates-mandatories-rules';
-        const AGGREGATE_SIZE_LIMITS_DRAGEE_TEST_DIRECTORY = './ddd/aggregates-size-limits-rules';
+        const AGGREGATE_ALLOWED_DEPENDENCIES_RULE = 'aggregates-allowed-dependencies';
+        const AGGREGATE_MANDATORY_DEPENDENCIES_RULE = 'aggregates-mandatory-dependencies';
+        const AGGREGATE_SIZE_LIMITS_RULE = 'aggregates-size-limits';
 
         describe('An aggregate must contain only value objects, entities, or events', () => {
-            rulePassed(`${AGGREGATE_DEPENDENCY_DRAGEE_TEST_DIRECTORY}/rule-passed.json`);
-            ruleFailed(`${AGGREGATE_DEPENDENCY_DRAGEE_TEST_DIRECTORY}/rule-failed.json`);
+            rulePassed(
+                `${FOLDER}${AGGREGATE_ALLOWED_DEPENDENCIES_RULE}-rule/rule-passed.json`,
+                AGGREGATE_ALLOWED_DEPENDENCIES_RULE
+            );
+            ruleFailed(
+                `${FOLDER}${AGGREGATE_ALLOWED_DEPENDENCIES_RULE}-rule/rule-failed.json`,
+                AGGREGATE_ALLOWED_DEPENDENCIES_RULE
+            );
         });
+
         describe('An aggregate must at least contains one entity', () => {
-            rulePassed(`${AGGREGATE_MANDATORY_DRAGEE_TEST_DIRECTORY}/rule-passed.json`);
-            ruleFailed(`${AGGREGATE_MANDATORY_DRAGEE_TEST_DIRECTORY}/rule-failed.json`);
+            rulePassed(
+                `${FOLDER}${AGGREGATE_MANDATORY_DEPENDENCIES_RULE}-rule/rule-passed.json`,
+                AGGREGATE_MANDATORY_DEPENDENCIES_RULE
+            );
+            ruleFailed(
+                `${FOLDER}${AGGREGATE_MANDATORY_DEPENDENCIES_RULE}-rule/rule-failed.json`,
+                AGGREGATE_MANDATORY_DEPENDENCIES_RULE
+            );
         });
 
         describe(`An aggregate must not have more than 3 dependencies to entities`, () => {
-            rulePassed(`${AGGREGATE_SIZE_LIMITS_DRAGEE_TEST_DIRECTORY}/rule-passed.json`);
-            ruleFailed(`${AGGREGATE_SIZE_LIMITS_DRAGEE_TEST_DIRECTORY}/rule-failed.json`);
+            rulePassed(
+                `${FOLDER}${AGGREGATE_SIZE_LIMITS_RULE}-rule/rule-passed.json`,
+                AGGREGATE_SIZE_LIMITS_RULE
+            );
+            ruleFailed(
+                `${FOLDER}${AGGREGATE_SIZE_LIMITS_RULE}-rule/rule-failed.json`,
+                AGGREGATE_SIZE_LIMITS_RULE
+            );
         });
     });
+
     describe('Repository Rules', () => {
-        const REPOSITORY_DRAGEE_TEST_DIRECTORY = './ddd/repositories-rules';
+        const REPOSITORY_DEPENDENCIES_RULE = 'repositories-dependencies';
 
         describe('A repository must be called only inside a Service', () => {
-            rulePassed(`${REPOSITORY_DRAGEE_TEST_DIRECTORY}/rule-passed.json`);
-            ruleFailed(`${REPOSITORY_DRAGEE_TEST_DIRECTORY}/rule-failed.json`);
+            rulePassed(`${FOLDER}${REPOSITORY_DEPENDENCIES_RULE}-rule/rule-passed.json`, REPOSITORY_DEPENDENCIES_RULE);
+            ruleFailed(`${FOLDER}${REPOSITORY_DEPENDENCIES_RULE}-rule/rule-failed.json`, REPOSITORY_DEPENDENCIES_RULE);
         });
     });
 
     describe('Value object rules', () => {
-        const VALUE_OBJECT_DRAGEE_DIRECTORY = './ddd/value-object-rules';
+        const VALUE_OBJECT_ALLOWED_DEPENDENCIES_RULE = 'value-object-allowed-dependencies';
 
         describe('Should only contains entities', () => {
-            rulePassed(`${VALUE_OBJECT_DRAGEE_DIRECTORY}/rule-passed.json`);
-            ruleFailed(`${VALUE_OBJECT_DRAGEE_DIRECTORY}/rule-failed.json`);
+            rulePassed(
+                `${FOLDER}${VALUE_OBJECT_ALLOWED_DEPENDENCIES_RULE}-rule/rule-passed.json`,
+                VALUE_OBJECT_ALLOWED_DEPENDENCIES_RULE
+            );
+            ruleFailed(
+                `${FOLDER}${VALUE_OBJECT_ALLOWED_DEPENDENCIES_RULE}-rule/rule-failed.json`,
+                VALUE_OBJECT_ALLOWED_DEPENDENCIES_RULE
+            );
         });
     });
 
     describe('Service rules', () => {
-        const SERVICE_DRAGEE_DIRECTORY = './ddd/services-rules';
+        const SERVICE_ALLOWED_DEPENDENCIES_RULE = 'services-allowed-dependencies';
+
         describe('Should only contains repositories, entities or value object', () => {
-            rulePassed(`${SERVICE_DRAGEE_DIRECTORY}/rule-passed.json`);
-            ruleFailed(`${SERVICE_DRAGEE_DIRECTORY}/rule-failed.json`);
+            rulePassed(
+                `${FOLDER}${SERVICE_ALLOWED_DEPENDENCIES_RULE}-rule/rule-passed.json`,
+                SERVICE_ALLOWED_DEPENDENCIES_RULE
+            );
+            ruleFailed(
+                `${FOLDER}${SERVICE_ALLOWED_DEPENDENCIES_RULE}-rule/rule-failed.json`,
+                SERVICE_ALLOWED_DEPENDENCIES_RULE
+            );
         });
     });
 
     describe('Factory rules', () => {
-        const FACTORY_DRAGEE_DIRECTORY = './ddd/factories-rules';
+        const FACTORIES_ALLOWED_DEPENDENCIES_RULE = 'factories-allowed-dependencies';
+        
         describe('Should only contains entities, value objects or aggregates', () => {
-            rulePassed(`${FACTORY_DRAGEE_DIRECTORY}/rule-passed.json`);
-            ruleFailed(`${FACTORY_DRAGEE_DIRECTORY}/rule-failed.json`);
+            rulePassed(`${FOLDER}${FACTORIES_ALLOWED_DEPENDENCIES_RULE}-rule/rule-passed.json`, FACTORIES_ALLOWED_DEPENDENCIES_RULE);
+            ruleFailed(`${FOLDER}${FACTORIES_ALLOWED_DEPENDENCIES_RULE}-rule/rule-failed.json`, FACTORIES_ALLOWED_DEPENDENCIES_RULE);
         });
     });
 
     describe('Command rules', () => {
-        const COMMAND_DRAGEE_DIRECTORY = './ddd/command-dependencies-rules';
+        const COMMANDS_ALLOWED_DEPENDENCIES_RULE = 'commands-allowed-dependencies';
+
         describe('Should only contains Aggregate', () => {
-            rulePassed(`${COMMAND_DRAGEE_DIRECTORY}/rule-passed.json`);
-            ruleFailed(`${COMMAND_DRAGEE_DIRECTORY}/rule-failed.json`);
+            rulePassed(
+                `${FOLDER}${COMMANDS_ALLOWED_DEPENDENCIES_RULE}-rule/rule-passed.json`,
+                COMMANDS_ALLOWED_DEPENDENCIES_RULE
+            );
+            ruleFailed(
+                `${FOLDER}${COMMANDS_ALLOWED_DEPENDENCIES_RULE}-rule/rule-failed.json`,
+                COMMANDS_ALLOWED_DEPENDENCIES_RULE
+            );
         });
     });
 });
