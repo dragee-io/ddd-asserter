@@ -1,4 +1,5 @@
 {
+    "extends": "@dragee-io/type/tsconfig.bun",
     "compilerOptions": {
         "lib": ["ESNext"],
         "target": "ESNext",
@@ -17,12 +18,6 @@
         "skipLibCheck": true,
         "strict": true,
         "noFallthroughCasesInSwitch": true,
-        "forceConsistentCasingInFileNames": true,
-
-        /**
-         * This tells the TypeScript compiler to resolve the exports under the flag 'bun' to resolve the correct types
-         * Basically, typescript will resolve typescript files from other packages when available otherwise will fallback to the default standard exports
-         */
-        "customConditions": ["bun"]
+        "forceConsistentCasingInFileNames": true
     }
 }
